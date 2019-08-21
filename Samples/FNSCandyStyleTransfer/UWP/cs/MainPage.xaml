@@ -13,7 +13,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     xmlns:local="using:SnapCandy"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Width="Auto" Height="Auto">
 
     <Page.Resources>
         <SolidColorBrush x:Key="TranslucentBlackBrush" Color="Black" Opacity="0.3"/>
@@ -38,7 +38,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
                             <ToggleSwitch Name="UIToggleInferenceDevice"
                                   OnContent="GPU"
                                   OffContent="CPU"
-                                  IsOn="True"
+                                  IsOn="False"
                                   Toggled="UIToggleInferenceDevice_Toggled" 
                                   Margin="10,0,0,0"/>
 
@@ -120,16 +120,16 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 
                         <!--inking canvas-->
                         <Viewbox Stretch="Uniform"  
-                                     MaxWidth="720"
-                                     MaxHeight="720">
-                            <Grid BorderBrush="Black" 
-                                      BorderThickness="1">
+                                     MaxWidth="1024"
+                                     MaxHeight="512">
+                            <Grid BorderBrush="White" 
+                                      BorderThickness="10">
                                 <Grid Name="UIInkGrid" 
-                                          Background="White"
+                                          Background="Black"
                                           MinWidth="200"
                                           MinHeight="200"
-                                          MaxWidth="720"
-                                          MaxHeight="720">
+                                          MaxWidth="1024"
+                                          MaxHeight="512">
                                     <InkCanvas Name="UIInkCanvasInput"/>
                                 </Grid>
                             </Grid>
@@ -142,26 +142,26 @@ Copyright (C) Microsoft Corporation. All rights reserved.
                                             Stretch="Uniform" 
                                             AreTransportControlsEnabled="False" 
                                             Canvas.ZIndex="-1"
-                                            MaxWidth="720"
-                                            MaxHeight="720"
+                                            MaxWidth="1024"
+                                            MaxHeight="512"
                                             Grid.Column="0"/>
 
                     <Image Name="UIInputImage"
                                Grid.Column="0"
                                Stretch="Uniform"
-                               MaxWidth="720"
-                               MaxHeight="720"/>
+                               MaxWidth="1024"
+                               MaxHeight="512"/>
 
                     <Grid  Grid.Column="1" VerticalAlignment="Stretch">
 
                         <Image Name="UIResultImage"
                                 Stretch="Uniform"
-                                MaxWidth="720"
-                                MaxHeight="720"/>
+                                MaxWidth="1024"
+                                MaxHeight="512"/>
 
                         <ProgressRing Name="UIProcessingProgressRing" 
-                                      MaxWidth="720"
-                                      MaxHeight="720"
+                                      MaxWidth="1024"
+                                      MaxHeight="512"
                                       IsActive="false" 
                                       Visibility="Collapsed"/>
                     </Grid>
