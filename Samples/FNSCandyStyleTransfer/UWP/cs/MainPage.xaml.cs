@@ -62,21 +62,29 @@ namespace SnapCandy
         private readonly List<string> _kModelFileNames = new List<string>
         {
             "candy",
-            "mosaic",
+            "studio",
             "la_muse",
             "udnie"
         };
-        private const string _kDefaultImageFileName = "DefaultImage.jpg";
+        private const string _kDefaultImageFileName = "Conjure_studio_light_black_ (31).jpg";
         private LearningModel m_model = null;
         private LearningModelDeviceKind m_inferenceDeviceSelected = LearningModelDeviceKind.Default;
         private LearningModelDevice m_device;
         private LearningModelSession m_session;
         private LearningModelBinding m_binding;
         uint m_outWidth, m_outHeight, m_inWidth, m_inHeight;
-        string m_outName, m_inName;
+        string m_outName, m_inName, m_instName;
         private List<string> _labels = new List<string>();
         VideoFrame _inputFrame = null;
         VideoFrame _outputFrame = null;
+
+        //string m_inName = "label";
+        //string m_instName = "inst";
+        //string m_outName = "synthesized_image";
+        //private const int label_nc = 16;
+        private string label_nc = "16";
+
+
 
         // Debug
         private Stopwatch _perfStopwatch = new Stopwatch(); // performance Stopwatch used throughout
@@ -108,7 +116,7 @@ namespace SnapCandy
                     Color = Windows.UI.Colors.Black,
                     Size = new Size(8, 8),
                     IgnorePressure = true,
-                    IgnoreTilt = true,
+                    IgnoreTilt = false,
                 }
             );
 
@@ -252,6 +260,8 @@ namespace SnapCandy
                         m_inWidth = (uint)(imgDesc == null ? tfDesc.Shape[3] : imgDesc.Width);
                         m_inHeight = (uint)(imgDesc == null ? tfDesc.Shape[2] : imgDesc.Height);
                         m_inName = inputF.Name;
+                        //m_inName = "label";
+                        m_instName = "inst";
 
                         Debug.WriteLine($"N: {(imgDesc == null ? tfDesc.Shape[0] : 1)}, " +
                             $"Channel: {(imgDesc == null ? tfDesc.Shape[1].ToString() : imgDesc.BitmapPixelFormat.ToString())}, " +
@@ -267,11 +277,12 @@ namespace SnapCandy
                         m_outWidth = (uint)(imgDesc == null ? tfDesc.Shape[3] : imgDesc.Width);
                         m_outHeight = (uint)(imgDesc == null ? tfDesc.Shape[2] : imgDesc.Height);
                         m_outName = outputF.Name;
+                        //m_outName = "synthesized_image";
 
                         Debug.WriteLine($"N: {(imgDesc == null ? tfDesc.Shape[0] : 1)}, " +
-                           $"Channel: {(imgDesc == null ? tfDesc.Shape[1].ToString() : imgDesc.BitmapPixelFormat.ToString())}, " +
-                           $"Height:{(imgDesc == null ? tfDesc.Shape[2] : imgDesc.Height)}, " +
-                           $"Width: {(imgDesc == null ? tfDesc.Shape[3] : imgDesc.Width)}");
+                                $"Channel: {(imgDesc == null ? tfDesc.Shape[1].ToString() : imgDesc.BitmapPixelFormat.ToString())}, " +
+                                $"Height:{(imgDesc == null ? tfDesc.Shape[2] : imgDesc.Height)}, " +
+                                $"Width: {(imgDesc == null ? tfDesc.Shape[3] : imgDesc.Width)}");
                     }
                     // ### END OF DEBUG ###
 
