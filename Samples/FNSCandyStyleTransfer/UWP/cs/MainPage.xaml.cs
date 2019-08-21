@@ -53,6 +53,7 @@ namespace SnapCandy
         private DispatcherTimer inkEvaluationDispatcherTimer;
         private bool _isrocessingImages = true;
         private bool _proceedWithEval = true;
+        private bool no_instance = true;
 
         // Rendering related
         private FrameRenderer _resultframeRenderer;
@@ -62,11 +63,11 @@ namespace SnapCandy
         private readonly List<string> _kModelFileNames = new List<string>
         {
             "candy",
-            "studio",
+            "balsa-7",
             "la_muse",
             "udnie"
         };
-        private const string _kDefaultImageFileName = "Conjure_studio_light_black_ (31).jpg";
+        private const string _kDefaultImageFileName = "balsa_model(36).jpg";
         private LearningModel m_model = null;
         private LearningModelDeviceKind m_inferenceDeviceSelected = LearningModelDeviceKind.Default;
         private LearningModelDevice m_device;
@@ -82,7 +83,9 @@ namespace SnapCandy
         //string m_instName = "inst";
         //string m_outName = "synthesized_image";
         //private const int label_nc = 16;
-        private string label_nc = "16";
+        //private string label_nc = "16";
+        string label_nc;
+        //string no_instance;
 
 
 
@@ -92,6 +95,7 @@ namespace SnapCandy
         private long _CaptureFPS = 0;
         public static long _RenderFPS = 0;
         private int _LastFPSTick = 0;
+        private bool _no_instance;
 
         public MainPage()
         {
@@ -421,6 +425,7 @@ namespace SnapCandy
             bool isReadyForEval = false;
             bool showInitialImageAndProgress = true;
             bool proceedWithEval = false;
+
             _evaluationLock.Wait();
             {
                 session = m_session;
@@ -428,6 +433,9 @@ namespace SnapCandy
                 _isReadyForEval = false;
                 showInitialImageAndProgress = _showInitialImageAndProgress;
                 proceedWithEval = _proceedWithEval;
+                no_instance = _no_instance;
+                _no_instance = true;
+                label_nc = "0";
             }
             _evaluationLock.Release();
 
